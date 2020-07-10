@@ -61,7 +61,6 @@ def post_tweet(command):
 
 def process_commands(commands: List[Dict]):
     for command in commands:
-        print(command)
         threading.Thread(target=post_tweet, args=[command]).run()
 
 
