@@ -12,6 +12,7 @@ pudb = "*"
 requests = "*"
 huey = "*"
 python-dotenv = "*"
+requests-oauthlib = "*"
 
 [requires]
 python_version = "3.8"
