@@ -1,3 +1,4 @@
+from typing import Dict, List
 from urllib.parse import quote as url_encode
 
 from . import caniuse
@@ -17,8 +18,8 @@ BROWSERS = {
 }
 
 
-def make_tweet(feats, query, max_feats):
-    lines = []
+def make_tweet(feats: List[Dict], query: str, max_feats: int, username: str):
+    lines = [f'@{username}']
 
     for feat in feats[:max_feats]:
         lines.append(feat['title'])
@@ -44,7 +45,7 @@ def make_tweet(feats, query, max_feats):
     return tweet
 
 
-def generate_tweet(query: str) -> str:
+def generate_tweet(query: str, username: str) -> str:
     cani = caniuse.CanIUseDB()
 
     feats = cani.get_features(query)
@@ -57,12 +58,12 @@ def generate_tweet(query: str) -> str:
 
     tweet = None
     for i in range(3, 0, -1):
-        _tweet = make_tweet(feats, query, i)
+        _tweet = make_tweet(feats, query, i, username)
         if len(_tweet) <= 280:
             tweet = _tweet
             break
 
     if tweet is None:
-        tweet = f"{len(feats)} results at https://caniuse.com/#search={url_encode(query)}"
+        tweet = f"@{username}\n{len(feats)} result{'s' if len(feats) != 1 else ''} at https://caniuse.com/#search={url_encode(query)}"
 
     return tweet
