@@ -138,3 +138,6 @@ dmypy.json
 cython_debug/
 
 .vscode/settings.json
+
+# Don't include my copy of the Can I Use? database.
+.caniuse.json
